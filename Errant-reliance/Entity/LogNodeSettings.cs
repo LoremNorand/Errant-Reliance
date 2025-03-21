@@ -20,6 +20,7 @@ namespace EReliance.Entity
 
         // Публичные свойства
         public string Name { get => _name; set => _name = value; }
+        public string PresetName { get => _name; }
 
 
         // Публичные логические свойства
@@ -32,7 +33,9 @@ namespace EReliance.Entity
         public bool LevelLogging { get => _levelLogging; set => _levelLogging = value; }
 
 
+        // Приватные поля
         private string _name = "Безымянный узел";
+        private string _preset = "";
 
 
         // Приватные логические поля
@@ -88,6 +91,7 @@ namespace EReliance.Entity
                 MessageLogging = preset.MessageLogging;
                 StackLogging = preset.StackLogging;
                 LevelLogging = preset.LevelLogging;
+                _preset = presetName;
             }
         }
 

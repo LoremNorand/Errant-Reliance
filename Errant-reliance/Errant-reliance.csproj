@@ -45,10 +45,14 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Core\LogNode.cs" />
+    <Compile Include="Core\RelianceConfig.cs" />
     <Compile Include="Entity\LogNodeSettings.cs" />
+    <Compile Include="Logger\LogManager.cs" />
+    <Compile Include="Preset\LogNodeBuilder.cs" />
     <Compile Include="Preset\LogNodeSettingsPresets.Builder.cs" />
     <Compile Include="Preset\LogNodeSettingsPresets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\HtmlManager.cs" />
     <Compile Include="Utility\LogAssembler.cs" />
     <Compile Include="Utility\TimeAssembler.cs" />
   </ItemGroup>

@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Dynamic;
+using System.Text;
 
 namespace EReliance.Core
 {
@@ -44,14 +46,20 @@ namespace EReliance.Core
 
 
         // Приватные поля
-        private int _level;
-        private LogNode _parent;
-        private Entity.LogNodeSettings _settings;
+        private int _level = 0;
+        private LogNode _parent = null;
+        private Entity.LogNodeSettings _settings = new Entity.LogNodeSettings();
 
 
         public void Log(string logType, string message)
         {
+            string[] meta = new string[3];
+            meta[0] = logType;
+            meta[1] = Utility.LogAssembler.GetStackPart(Core.RelianceConfig.STACK_LENGTH);
+            meta[2] = message;
+            string log = Utility.LogAssembler.AssembleMessageHTML(this, meta);
 
+            Core.RelianceConfig.StringMemory.AppendLine(log);
         }
 
     }
