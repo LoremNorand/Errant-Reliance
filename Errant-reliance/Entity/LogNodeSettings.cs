@@ -19,8 +19,8 @@ namespace EReliance.Entity
         //---
 
         // Публичные свойства
-        public string Parent { get => _parent; set => _parent = value; }
         public string Name { get => _name; set => _name = value; }
+
 
         // Публичные логические свойства
         public bool ParentLogging { get => _parentLogging; set => _parentLogging = value; }
@@ -29,11 +29,11 @@ namespace EReliance.Entity
         public bool TypeLogging { get => _typeLogging; set => _typeLogging = value; }
         public bool MessageLogging { get => _messageLogging; set => _messageLogging = value; }
         public bool StackLogging { get => _stackLogging; set => _stackLogging = value; }
+        public bool LevelLogging { get => _levelLogging; set => _levelLogging = value; }
 
 
-        // Приватные поля
-        private string _parent = "Глобальное";
         private string _name = "Безымянный узел";
+
 
         // Приватные логические поля
         private bool _parentLogging = true;
@@ -42,32 +42,61 @@ namespace EReliance.Entity
         private bool _typeLogging = true;
         private bool _messageLogging = true;
         private bool _stackLogging = true;
+        private bool _levelLogging = true;
 
 
-        // Конструктор
+        // Конструкторы
         public LogNodeSettings(
-            string parent = "Глобальное",
             string name = "Безымянный узел",
             bool parentLogging = true,
             bool nameLogging = true,
             bool timeLogging = true,
             bool typeLogging = true,
             bool messageLogging = true,
-            bool stackLogging = true
+            bool stackLogging = true,
+            bool levelLogging = true
             )
         {
+            Name = name;
+            ParentLogging = parentLogging;
+            NameLogging = nameLogging;
+            TimeLogging = timeLogging;
+            TypeLogging = typeLogging;
+            MessageLogging = messageLogging;
+            StackLogging = stackLogging;
+            LevelLogging = _levelLogging;
+        }
 
+        public LogNodeSettings(string name, string presetName)
+        {
+            Name = name;
+            AssignPreset(presetName);
         }
 
 
         // Публичные методы
+        public void AssignPreset(string presetName)
+        {
+            string bufferName = Name;
+            if (Preset.LogNodeSettingsPresets.Instance.ContainsKey(presetName))
+            {
+                LogNodeSettings preset = Preset.LogNodeSettingsPresets.Instance[presetName];
+                ParentLogging = preset.ParentLogging;
+                NameLogging = preset.NameLogging;
+                TimeLogging = preset.TimeLogging;
+                TypeLogging = preset.TypeLogging;
+                MessageLogging = preset.MessageLogging;
+                StackLogging = preset.StackLogging;
+                LevelLogging = preset.LevelLogging;
+            }
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"EReliance.Entity.LogNodeSettings | Свойства узла {Name}");
             sb.AppendLine("  # ОСНОВНЫЕ СВОЙСТВА");
             sb.AppendLine($"    Имя узла: {Name}");
-            sb.AppendLine($"    Родитель узла: {Parent}");
             sb.AppendLine("  # ЛОГИЧЕСКИЕ СВОЙСТВА");
             sb.AppendLine($"    Вывод родителя: {ParentLogging}");
             sb.AppendLine($"    Вывод имени: {NameLogging}");
